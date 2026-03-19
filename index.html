@@ -11,55 +11,54 @@ body {
     font-family: Arial, sans-serif;
     color: white;
     text-align: center;
-    transition: background 0.5s;
     overflow-x: hidden;
+    transition: background 0.4s;
 }
 
 body.animated {
-    background: linear-gradient(135deg, #0a0f2c, #0d47a1);
+    background: linear-gradient(270deg, #0a0f2c, #0d47a1, #1565c0);
+    background-size: 600% 600%;
+    animation: gradientMove 12s ease infinite;
 }
 
 body.plain {
     background: #0d47a1;
 }
 
-.blob {
-    position: fixed;
-    border-radius: 50%;
-    opacity: 0.3;
-    animation: float 10s infinite ease-in-out;
-    z-index: 0;
-}
-
-.blob1 { width: 200px; height: 200px; background: #42a5f5; top: 10%; left: 10%; }
-.blob2 { width: 300px; height: 300px; background: #1e88e5; top: 50%; left: 70%; }
-.blob3 { width: 150px; height: 150px; background: #64b5f6; top: 70%; left: 20%; }
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-40px); }
-    100% { transform: translateY(0px); }
+@keyframes gradientMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
 }
 
 .container {
-    position: relative;
-    padding: 50px 20px;
-    z-index: 1;
+    padding: 60px 20px;
 }
 
 .profile {
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     border: 3px solid #42a5f5;
     object-fit: cover;
     margin-bottom: 15px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: 0.3s;
 }
 
 .profile:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 20px #42a5f5;
+    box-shadow: 0 0 25px #42a5f5;
+}
+
+h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 18px;
+    opacity: 0.8;
+    margin-bottom: 30px;
 }
 
 .card {
@@ -67,19 +66,20 @@ body.plain {
     border-radius: 15px;
     padding: 20px;
     margin: 20px auto;
-    max-width: 500px;
+    max-width: 520px;
     backdrop-filter: blur(10px);
     transition: 0.3s;
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 0 20px rgba(66,165,245,0.3);
 }
 
 a.button {
     display: inline-block;
     margin-top: 10px;
-    padding: 10px 20px;
+    padding: 10px 22px;
     border-radius: 25px;
     background: #1e88e5;
     color: white;
@@ -100,75 +100,118 @@ a.button:hover {
     background: #1e88e5;
     cursor: pointer;
     font-size: 14px;
-    z-index: 2;
 }
 
 .toggle:hover {
     background: #42a5f5;
+}
+
+.cursor {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    background: #42a5f5;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.6;
+    transform: translate(-50%, -50%);
+    filter: blur(6px);
+}
+
+.hidden {
+    opacity: 0;
 }
 </style>
 </head>
 
 <body class="animated">
 
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div class="blob blob3"></div>
+<div class="cursor" id="cursor"></div>
 
 <div class="toggle" id="toggleBtn">Disable Animations</div>
 
 <div class="container">
-    
-    <img class="profile" src="https://cdn.discordapp.com/attachments/1465411636385939581/1484206907307856063/Screenshot_2026-02-12_213303.png?ex=69bd62e5&is=69bc1165&hm=238a673a98e94ec98b1d1576d7c4c5ee98ebd344fa9dd906a428c8965f2d288d">
 
-    <h1>Joshua</h1>
+<img class="profile" src="https://cdn.discordapp.com/attachments/1465411636385939581/1484206907307856063/Screenshot_2026-02-12_213303.png?ex=69bd62e5&is=69bc1165&hm=238a673a98e94ec98b1d1576d7c4c5ee98ebd344fa9dd906a428c8965f2d288d">
 
-    <div class="card">
-        <h2>Discord Info</h2>
-        <p><strong>Username:</strong> joshua_neww</p>
-        <p><strong>User ID:</strong> 1465833498949455873</p>
-        <p><strong>Joined:</strong> January 27, 2026</p>
-    </div>
+<h1 id="title"></h1>
+<div class="subtitle" id="subtitle"></div>
 
-    <div class="card">
-        <h2>Server Roles</h2>
-        <p>Moderator at ZapBot</p>
-        <a class="button" href="https://discord.gg/freefollow" target="_blank">
-            Join Server
-        </a>
-    </div>
+<div class="card hidden" id="card1">
+<h2>Discord Info</h2>
+<p><strong>Username:</strong> joshua_neww</p>
+<p><strong>User ID:</strong> 1465833498949455873</p>
+<p><strong>Joined:</strong> January 27, 2026</p>
+</div>
 
-    <div class="card">
-        <h2>About Me</h2>
-        <p>
-            Hey, I am Joshua. Thank you for visiting my page!
-            If you need to get into contact with me, feel free to DM me on Discord,
-            and I will try to get back to you.
-        </p>
-        <p>
-            I also do a bit of Lua and Python coding and am working on learning more!
-        </p>
-    </div>
+<div class="card hidden" id="card2">
+<h2>Server Roles</h2>
+<p>Moderator at ZapBot</p>
+<a class="button" href="https://discord.gg/freefollow" target="_blank">Join Server</a>
+</div>
+
+<div class="card hidden" id="card3">
+<h2>About Me</h2>
+<p id="aboutText"></p>
+</div>
 
 </div>
 
 <script>
+const cursor = document.getElementById("cursor");
+document.addEventListener("mousemove", e => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+});
+
 const toggleBtn = document.getElementById("toggleBtn");
 const body = document.body;
-const blobs = document.querySelectorAll(".blob");
 
-toggleBtn.addEventListener("click", () => {
+toggleBtn.onclick = () => {
     if (body.classList.contains("animated")) {
         body.classList.remove("animated");
         body.classList.add("plain");
-        blobs.forEach(b => b.style.display = "none");
         toggleBtn.textContent = "Enable Animations";
+        cursor.style.display = "none";
     } else {
         body.classList.remove("plain");
         body.classList.add("animated");
-        blobs.forEach(b => b.style.display = "block");
         toggleBtn.textContent = "Disable Animations";
+        cursor.style.display = "block";
     }
+};
+
+function typeText(element, text, speed, callback) {
+    let i = 0;
+    function typing() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        } else if (callback) {
+            callback();
+        }
+    }
+    typing();
+}
+
+const title = document.getElementById("title");
+const subtitle = document.getElementById("subtitle");
+const aboutText = document.getElementById("aboutText");
+
+typeText(title, "Hey, I'm Joshua", 20, () => {
+    typeText(subtitle, "Roblox Developer • Discord Bot Developer", 15, () => {
+        document.getElementById("card1").classList.remove("hidden");
+        setTimeout(() => {
+            document.getElementById("card2").classList.remove("hidden");
+        }, 150);
+        setTimeout(() => {
+            document.getElementById("card3").classList.remove("hidden");
+            typeText(aboutText,
+                "Hey, I am Joshua. Thank you for visiting my page! If you need to get into contact with me, feel free to DM me on Discord, and I will try to get back to you. I also make Roblox games and Discord bots, and I do a bit of Lua and Python while continuing to learn more.",
+            10);
+        }, 300);
+    });
 });
 </script>
 
