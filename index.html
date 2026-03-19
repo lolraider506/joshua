@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua | About Me</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0f2c, #0d47a1);
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            padding: 50px 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        a.button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: #1e88e5;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        a.button:hover {
+            background: #42a5f5;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Joshua</h1>
+
+    <div class="card">
+        <h2>Discord Info</h2>
+        <p><strong>Username:</strong> joshua_neww</p>
+        <p><strong>User ID:</strong> 1465833498949455873</p>
+        <p><strong>Joined:</strong> January 27, 2026</p>
+    </div>
+
+    <div class="card">
+        <h2>Server Roles</h2>
+        <p>Moderator at ZapBot</p>
+        <a class="button" href="https://discord.gg/freefollow" target="_blank">
+            Join Server
+        </a>
+    </div>
+
+    <div class="card">
+        <h2>About Me</h2>
+        <p>
+            Hey, I am Joshua. Thank you for visiting my page!  
+            If you need to get into contact with me, feel free to DM me on Discord, 
+            and I will try to get back to you.
+        </p>
+        <p>
+            I also do a bit of Lua and Python coding and am working on learning more!
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
