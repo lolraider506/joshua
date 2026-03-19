@@ -12,11 +12,11 @@ body {
     color: white;
     text-align: center;
     transition: background 0.5s;
+    overflow-x: hidden;
 }
 
 body.animated {
     background: linear-gradient(135deg, #0a0f2c, #0d47a1);
-    overflow: hidden;
 }
 
 body.plain {
@@ -24,10 +24,11 @@ body.plain {
 }
 
 .blob {
-    position: absolute;
+    position: fixed;
     border-radius: 50%;
     opacity: 0.3;
     animation: float 10s infinite ease-in-out;
+    z-index: 0;
 }
 
 .blob1 { width: 200px; height: 200px; background: #42a5f5; top: 10%; left: 10%; }
@@ -99,7 +100,7 @@ a.button:hover {
     background: #1e88e5;
     cursor: pointer;
     font-size: 14px;
-    transition: 0.3s;
+    z-index: 2;
 }
 
 .toggle:hover {
@@ -114,7 +115,7 @@ a.button:hover {
 <div class="blob blob2"></div>
 <div class="blob blob3"></div>
 
-<div class="toggle" onclick="toggleMode()">Toggle Animation</div>
+<div class="toggle" id="toggleBtn">Disable Animations</div>
 
 <div class="container">
     
@@ -152,20 +153,23 @@ a.button:hover {
 </div>
 
 <script>
-function toggleMode() {
-    const body = document.body;
-    const blobs = document.querySelectorAll('.blob');
+const toggleBtn = document.getElementById("toggleBtn");
+const body = document.body;
+const blobs = document.querySelectorAll(".blob");
 
-    if (body.classList.contains('animated')) {
-        body.classList.remove('animated');
-        body.classList.add('plain');
-        blobs.forEach(b => b.style.display = 'none');
+toggleBtn.addEventListener("click", () => {
+    if (body.classList.contains("animated")) {
+        body.classList.remove("animated");
+        body.classList.add("plain");
+        blobs.forEach(b => b.style.display = "none");
+        toggleBtn.textContent = "Enable Animations";
     } else {
-        body.classList.remove('plain');
-        body.classList.add('animated');
-        blobs.forEach(b => b.style.display = 'block');
+        body.classList.remove("plain");
+        body.classList.add("animated");
+        blobs.forEach(b => b.style.display = "block");
+        toggleBtn.textContent = "Disable Animations";
     }
-}
+});
 </script>
 
 </body>
