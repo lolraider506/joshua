@@ -1,68 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joshua | About Me</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joshua | About Me</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0a0f2c, #0d47a1);
-            color: white;
-            text-align: center;
-            overflow-x: hidden;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    transition: background 0.5s;
+}
 
-        .container {
-            padding: 50px 20px;
-            animation: fadeIn 1.5s ease;
-        }
+body.animated {
+    background: linear-gradient(135deg, #0a0f2c, #0d47a1);
+    overflow: hidden;
+}
 
-        h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
+body.plain {
+    background: #0d47a1;
+}
 
-        .card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 500px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
-        }
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float 10s infinite ease-in-out;
+}
 
-        .card:hover {
-            transform: scale(1.05);
-        }
+.blob1 { width: 200px; height: 200px; background: #42a5f5; top: 10%; left: 10%; }
+.blob2 { width: 300px; height: 300px; background: #1e88e5; top: 50%; left: 70%; }
+.blob3 { width: 150px; height: 150px; background: #64b5f6; top: 70%; left: 20%; }
 
-        a.button {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            border-radius: 25px;
-            background: #1e88e5;
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-40px); }
+    100% { transform: translateY(0px); }
+}
 
-        a.button:hover {
-            background: #42a5f5;
-        }
+.container {
+    position: relative;
+    padding: 50px 20px;
+    z-index: 1;
+}
 
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-    </style>
+.profile {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #42a5f5;
+    object-fit: cover;
+    margin-bottom: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.profile:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #42a5f5;
+}
+
+.card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 500px;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+a.button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: #1e88e5;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a.button:hover {
+    background: #42a5f5;
+}
+
+.toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background: #1e88e5;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.toggle:hover {
+    background: #42a5f5;
+}
+</style>
 </head>
-<body>
+
+<body class="animated">
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="toggle" onclick="toggleMode()">Toggle Animation</div>
 
 <div class="container">
+    
+    <img class="profile" src="https://cdn.discordapp.com/attachments/1465411636385939581/1484206907307856063/Screenshot_2026-02-12_213303.png?ex=69bd62e5&is=69bc1165&hm=238a673a98e94ec98b1d1576d7c4c5ee98ebd344fa9dd906a428c8965f2d288d">
+
     <h1>Joshua</h1>
 
     <div class="card">
@@ -83,15 +140,33 @@
     <div class="card">
         <h2>About Me</h2>
         <p>
-            Hey, I am Joshua. Thank you for visiting my page!  
-            If you need to get into contact with me, feel free to DM me on Discord, 
+            Hey, I am Joshua. Thank you for visiting my page!
+            If you need to get into contact with me, feel free to DM me on Discord,
             and I will try to get back to you.
         </p>
         <p>
             I also do a bit of Lua and Python coding and am working on learning more!
         </p>
     </div>
+
 </div>
+
+<script>
+function toggleMode() {
+    const body = document.body;
+    const blobs = document.querySelectorAll('.blob');
+
+    if (body.classList.contains('animated')) {
+        body.classList.remove('animated');
+        body.classList.add('plain');
+        blobs.forEach(b => b.style.display = 'none');
+    } else {
+        body.classList.remove('plain');
+        body.classList.add('animated');
+        blobs.forEach(b => b.style.display = 'block');
+    }
+}
+</script>
 
 </body>
 </html>
